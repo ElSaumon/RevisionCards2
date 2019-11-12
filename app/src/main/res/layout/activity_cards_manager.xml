@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.CardsManagerActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/activity_cards_manager_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/activity_cards_manager_add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/Add_folder_card"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:minWidth="210dp"
+        android:height="70dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/activity_cards_manager_tree_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/activity_cards_manager_toolbar"
+        android:layout_above="@+id/activity_cards_manager_add_btn" />
+
+</RelativeLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.CardsRevisionActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/activity_cards_revision_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/activity_cards_revision_current_card_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_cards_revision_toolbar"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/activity_cards_revision_btns_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/activity_cards_revision_ko_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/darker_gray"
+            android:background="@color/gray"
+            android:text="@string/Failed"
+            android:enabled="false"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/activity_cards_revision_middle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/darker_gray"
+            android:background="@color/gray"
+            android:text="@string/Average"
+            android:enabled="false"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/activity_cards_revision_ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/darker_gray"
+            android:background="@color/gray"
+            android:text="@string/Successful"
+            android:enabled="false"
+            style="?android:attr/buttonBarButtonStyle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_cards_revision_score_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activity_cards_revision_btns_container"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/activity_cards_revision_texts_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/activity_cards_revision_current_card_text"
+        android:layout_above="@+id/activity_cards_revision_score_text"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/activity_cards_revision_text1_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/borders"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/activity_cards_revision_text2_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/borders"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>

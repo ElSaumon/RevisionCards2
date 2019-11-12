@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="48dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:background="@drawable/card_bottom_border">
+
+    <CheckBox
+        android:id="@+id/node_cards_revision_selector_card_card_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true" />
+
+    <com.github.johnkil.print.PrintView
+        android:id="@+id/node_cards_revision_selector_card_card_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@+id/node_cards_revision_selector_card_card_check"
+        app:iconText="@string/ic_content_copy"
+        app:iconColor="@android:color/black"
+        app:iconFont="fonts/material-icon-font.ttf"
+        app:iconSize="20dp" />
+
+    <TextView
+        android:id="@+id/node_cards_revision_selector_card_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/node_cards_revision_selector_card_card_icon"
+        android:layout_toStartOf="@+id/node_cards_revision_selector_card_score_text"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/node_cards_revision_selector_card_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:minWidth="30dp"
+        android:minHeight="30dp"
+        android:gravity="center"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>
