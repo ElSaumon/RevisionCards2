@@ -139,11 +139,7 @@ public class CardsManagerActivity extends BaseActivity {
                 .setPositiveButton(getString(R.string.Add), null)
                 .create();
 
-        dialog.setOnShowListener(dialogInterface -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
-                addFolderCard(dialog, self);
-            });
-        });
+        dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> addFolderCard(dialog, self)));
 
         try {
             getFoldersByParentId(0, null);
