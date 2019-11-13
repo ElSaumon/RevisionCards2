@@ -90,7 +90,7 @@ public class CardsRevisionActivity extends BaseActivity {
             ((TextView) findViewById(R.id.activity_cards_revision_current_card_text)).setText(card.getName());
         }
         ((TextView) findViewById(R.id.activity_cards_revision_text1_text)).setText(card.getTextToShow());
-        findViewById(R.id.activity_cards_revision_text2_text).setBackgroundColor(Color.BLACK);
+        findViewById(R.id.activity_cards_revision_text2_text).setBackgroundResource(R.drawable.borders_fill_black);
         disableButtons();
         new ShowScoreAsyncTask(this).execute();
         nextCardIndex++;
