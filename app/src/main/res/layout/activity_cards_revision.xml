@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@color/gray"
+            android:background="@drawable/button_disable"
             android:text="@string/Failed"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@color/gray"
+            android:background="@drawable/button_disable"
             android:text="@string/Average"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@color/gray"
+            android:background="@drawable/button_disable"
             android:text="@string/Successful"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
