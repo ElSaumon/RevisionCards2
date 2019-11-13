@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@drawable/button_disable"
+            android:background="@drawable/revision_button_disable"
             android:text="@string/Failed"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@drawable/button_disable"
+            android:background="@drawable/revision_button_disable"
             android:text="@string/Average"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:textColor="@android:color/darker_gray"
-            android:background="@drawable/button_disable"
+            android:background="@drawable/revision_button_disable"
             android:text="@string/Successful"
             android:enabled="false"
             style="?android:attr/buttonBarButtonStyle" />
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/borders"
+            android:background="@drawable/revision_text_shown"
             android:textSize="20sp"
             android:padding="10dp"
             android:gravity="center" />
@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/borders"
+            android:background="@drawable/revision_text_shown"
             android:textSize="20sp"
             android:padding="10dp"
             android:gravity="center" />

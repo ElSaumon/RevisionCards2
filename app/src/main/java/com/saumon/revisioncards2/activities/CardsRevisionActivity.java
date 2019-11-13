@@ -1,6 +1,5 @@
 package com.saumon.revisioncards2.activities;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,7 +54,7 @@ public class CardsRevisionActivity extends BaseActivity {
     @OnClick(R.id.activity_cards_revision_text2_text)
     public void onClickText2Text(@NonNull TextView textView) {
         textView.setText(card.getTextToHide());
-        textView.setBackgroundResource(R.drawable.borders);
+        textView.setBackgroundResource(R.drawable.revision_text_shown);
         enableButtons();
     }
 
@@ -90,7 +89,7 @@ public class CardsRevisionActivity extends BaseActivity {
             ((TextView) findViewById(R.id.activity_cards_revision_current_card_text)).setText(card.getName());
         }
         ((TextView) findViewById(R.id.activity_cards_revision_text1_text)).setText(card.getTextToShow());
-        findViewById(R.id.activity_cards_revision_text2_text).setBackgroundResource(R.drawable.borders_fill_black);
+        findViewById(R.id.activity_cards_revision_text2_text).setBackgroundResource(R.drawable.revision_text_hidden);
         disableButtons();
         new ShowScoreAsyncTask(this).execute();
         nextCardIndex++;
@@ -104,9 +103,9 @@ public class CardsRevisionActivity extends BaseActivity {
         okBtn.setEnabled(true);
         middleBtn.setEnabled(true);
         koBtn.setEnabled(true);
-        okBtn.setBackgroundResource(R.drawable.button_ok);
-        middleBtn.setBackgroundResource(R.drawable.button_middle);
-        koBtn.setBackgroundResource(R.drawable.button_ko);
+        okBtn.setBackgroundResource(R.drawable.revision_button_ok);
+        middleBtn.setBackgroundResource(R.drawable.revision_button_middle);
+        koBtn.setBackgroundResource(R.drawable.revision_button_ko);
         okBtn.setTextColor(getResources().getColor(android.R.color.black));
         middleBtn.setTextColor(getResources().getColor(android.R.color.black));
         koBtn.setTextColor(getResources().getColor(android.R.color.black));
@@ -116,9 +115,9 @@ public class CardsRevisionActivity extends BaseActivity {
         okBtn.setEnabled(false);
         middleBtn.setEnabled(false);
         koBtn.setEnabled(false);
-        okBtn.setBackgroundResource(R.drawable.button_disable);
-        middleBtn.setBackgroundResource(R.drawable.button_disable);
-        koBtn.setBackgroundResource(R.drawable.button_disable);
+        okBtn.setBackgroundResource(R.drawable.revision_button_disable);
+        middleBtn.setBackgroundResource(R.drawable.revision_button_disable);
+        koBtn.setBackgroundResource(R.drawable.revision_button_disable);
         okBtn.setTextColor(getResources().getColor(android.R.color.darker_gray));
         middleBtn.setTextColor(getResources().getColor(android.R.color.darker_gray));
         koBtn.setTextColor(getResources().getColor(android.R.color.darker_gray));
