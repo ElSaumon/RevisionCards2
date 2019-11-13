@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.OnClick;
 
 public class CardsManagerActivity extends BaseActivity {
+    private static final String MODE_NONE = "none";
     private static final String MODE_SELECTION = "selection";
     private static final String MODE_CREATION = "creation";
 
@@ -47,6 +48,7 @@ public class CardsManagerActivity extends BaseActivity {
     private Long folder0Id, folder1Id, folder2Id;
     private boolean onCreate = false;
     private boolean addedFolderCard = false;
+    private List<String> folder0Modes, folder1Modes, folder2Modes;
 
     @Override
     public int getLayoutContentViewID() {
@@ -140,6 +142,8 @@ public class CardsManagerActivity extends BaseActivity {
                 .create();
 
         dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> addFolderCard(dialog, self)));
+
+        initFoldersModes();
 
         try {
             getFoldersByParentId(0, null);
@@ -274,6 +278,38 @@ public class CardsManagerActivity extends BaseActivity {
             Toast.makeText(activity, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
             dialog.dismiss();
         }
+    }
+
+    private void initFoldersModes() {
+        folder0Modes = new ArrayList<>();
+        folder0Modes.add("Aucun");
+        folder0Modes.add("Sélection");
+        folder0Modes.add("Création");
+
+        Spinner folder0ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_0_mode_spinner);
+        ArrayAdapter<String> folder0ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder0Modes);
+        folder0ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        folder0ModesSpinner.setAdapter(folder0ModesAdapter);
+
+        folder1Modes = new ArrayList<>();
+        folder1Modes.add("Aucun");
+        folder1Modes.add("Sélection");
+        folder1Modes.add("Création");
+
+        Spinner folder1ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_1_mode_spinner);
+        ArrayAdapter<String> folder1ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder1Modes);
+        folder1ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        folder1ModesSpinner.setAdapter(folder1ModesAdapter);
+
+        folder2Modes = new ArrayList<>();
+        folder2Modes.add("Aucun");
+        folder2Modes.add("Sélection");
+        folder2Modes.add("Création");
+
+        Spinner folder2ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_2_mode_spinner);
+        ArrayAdapter<String> folder2ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder2Modes);
+        folder2ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        folder2ModesSpinner.setAdapter(folder2ModesAdapter);
     }
 
     // region BindEvents
@@ -420,9 +456,11 @@ public class CardsManagerActivity extends BaseActivity {
     private void onCheckedFolder0ModeSelection() {
         toggleFolderSpinnerVisibility(0, true);
         toggleFolderNameTextVisibility(0, false);
+        toggleFolderModeSelectionVisibility(1, true);
         toggleFolderModeVisibility(1, MODE_SELECTION, true);
         toggleFolderGroupVisibility(1, true);
         if (isFolderMode(1, MODE_SELECTION)) {
+            toggleFolderModeSelectionVisibility(2, true);
             toggleFolderModeVisibility(2, MODE_SELECTION, true);
             toggleFolderGroupVisibility(2, true);
         }
@@ -431,10 +469,12 @@ public class CardsManagerActivity extends BaseActivity {
     private void onCheckedFolder0ModeCreation() {
         toggleFolderSpinnerVisibility(0, false);
         toggleFolderNameTextVisibility(0, true);
+        toggleFolderModeSelectionVisibility(1, false);
         toggleFolderModeVisibility(1, MODE_SELECTION, false);
         toggleFolderMode(1, MODE_CREATION);
         toggleFolderSpinnerVisibility(1, false);
         toggleFolderNameTextVisibility(1, true);
+        toggleFolderModeSelectionVisibility(2, false);
         toggleFolderModeVisibility(2, MODE_SELECTION, false);
         toggleFolderMode(2, MODE_CREATION);
         toggleFolderSpinnerVisibility(2, false);
@@ -455,6 +495,7 @@ public class CardsManagerActivity extends BaseActivity {
     private void onCheckedFolder1ModeSelection() {
         toggleFolderSpinnerVisibility(1, true);
         toggleFolderNameTextVisibility(1, false);
+        toggleFolderModeSelectionVisibility(2, true);
         toggleFolderModeVisibility(2, MODE_SELECTION, true);
         toggleFolderGroupVisibility(2, true);
     }
@@ -462,6 +503,7 @@ public class CardsManagerActivity extends BaseActivity {
     private void onCheckedFolder1ModeCreation() {
         toggleFolderSpinnerVisibility(1, false);
         toggleFolderNameTextVisibility(1, true);
+        toggleFolderModeSelectionVisibility(2, false);
         toggleFolderModeVisibility(2, MODE_SELECTION, false);
         toggleFolderMode(2, MODE_CREATION);
         toggleFolderSpinnerVisibility(2, false);
@@ -517,6 +559,40 @@ public class CardsManagerActivity extends BaseActivity {
                 throw new IllegalArgumentException("Unknown folder: " + folder);
         }
         dialogView.findViewById(viewId).setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void toggleFolderModeSelectionVisibility(int folder, boolean show) throws IllegalArgumentException {
+        int viewId;
+        List<String> folderModes;
+        switch (folder) {
+            case 0:
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
+                folderModes = folder0Modes;
+                break;
+            case 1:
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
+                folderModes = folder1Modes;
+                break;
+            case 2:
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
+                folderModes = folder2Modes;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown folder: " + folder);
+        }
+        Spinner spinner = dialogView.findViewById(viewId);
+        int folderModesSelection = spinner.getSelectedItemPosition();
+        if (show && !folderModes.contains("Sélection")) {
+            folderModes.add(1, "Sélection");
+            if (1 == folderModesSelection) {
+                spinner.setSelection(2);
+            }
+        } else if (!show && folderModes.contains("Sélection")) {
+            folderModes.remove("Sélection");
+            if (1 == folderModesSelection) {
+                spinner.setSelection(0);
+            }
+        }
     }
 
     private void toggleFolderModeVisibility(int folder, String mode, boolean show) throws IllegalArgumentException {
@@ -746,11 +822,13 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder0List(@NonNull List<Folder> folders) {
+        toggleFolderModeSelectionVisibility(0, true);
         toggleFolderModeVisibility(0, MODE_SELECTION, true);
         toggleFolderMode(0, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder0Id = null;
             toggleFolderMode(0, MODE_CREATION);
+            toggleFolderModeSelectionVisibility(0, false);
             toggleFolderModeVisibility(0, MODE_SELECTION, false);
             if (getFolderNameTextContent(0).isEmpty()) {
                 toggleFolderGroupVisibility(1, false);
@@ -790,11 +868,13 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder1List(@NonNull List<Folder> folders) {
+        toggleFolderModeSelectionVisibility(1, true);
         toggleFolderModeVisibility(1, MODE_SELECTION, true);
         toggleFolderMode(1, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder1Id = null;
             toggleFolderMode(1, MODE_CREATION);
+            toggleFolderModeSelectionVisibility(1, false);
             toggleFolderModeVisibility(1, MODE_SELECTION, false);
             if (getFolderNameTextContent(1).isEmpty()) {
                 toggleFolderGroupVisibility(2, false);
@@ -832,11 +912,13 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder2List(@NonNull List<Folder> folders) {
+        toggleFolderModeSelectionVisibility(2, true);
         toggleFolderModeVisibility(2, MODE_SELECTION, true);
         toggleFolderMode(2, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder2Id = null;
             toggleFolderMode(2, MODE_CREATION);
+            toggleFolderModeSelectionVisibility(2, false);
             toggleFolderModeVisibility(2, MODE_SELECTION, false);
             return;
         }
