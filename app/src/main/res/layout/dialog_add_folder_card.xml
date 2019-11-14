@@ -36,35 +36,6 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/dialog_add_folder_card_folder_0_mode_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:text="@string/Folder_0_mode" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_0_mode_selection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Selection"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_0_mode_creation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Creation" />
-
-        </RadioGroup>
-
         <Spinner
             android:id="@+id/dialog_add_folder_card_folder_0_spinner"
             android:layout_width="wrap_content"
@@ -105,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:text="@string/Folder_0_mode" />
+                android:text="@string/Folder_1_mode" />
 
             <Spinner
                 android:id="@+id/dialog_add_folder_card_folder_1_mode_spinner"
@@ -113,35 +84,6 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/dialog_add_folder_card_folder_1_mode_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:text="@string/Folder_1_mode" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_1_mode_selection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Selection"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_1_mode_creation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Creation" />
-
-        </RadioGroup>
 
         <Spinner
             android:id="@+id/dialog_add_folder_card_folder_1_spinner"
@@ -183,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:text="@string/Folder_0_mode" />
+                android:text="@string/Folder_2_mode" />
 
             <Spinner
                 android:id="@+id/dialog_add_folder_card_folder_2_mode_spinner"
@@ -191,35 +133,6 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/dialog_add_folder_card_folder_2_mode_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:text="@string/Folder_2_mode" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_2_mode_selection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Selection"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/dialog_add_folder_card_folder_2_mode_creation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Creation" />
-
-        </RadioGroup>
 
         <Spinner
             android:id="@+id/dialog_add_folder_card_folder_2_spinner"
