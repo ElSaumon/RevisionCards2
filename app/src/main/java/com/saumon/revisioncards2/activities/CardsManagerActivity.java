@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.OnClick;
 
 public class CardsManagerActivity extends BaseActivity {
+    private static final String MODE_NONE = "none";
     private static final String MODE_SELECTION = "selection";
     private static final String MODE_CREATION = "creation";
 
@@ -47,6 +48,7 @@ public class CardsManagerActivity extends BaseActivity {
     private Long folder0Id, folder1Id, folder2Id;
     private boolean onCreate = false;
     private boolean addedFolderCard = false;
+    private List<FolderMode> folder0Modes, folder1Modes, folder2Modes;
 
     @Override
     public int getLayoutContentViewID() {
@@ -119,6 +121,22 @@ public class CardsManagerActivity extends BaseActivity {
     // endregion
 
     // region DialogAddFolderCard
+    private class FolderMode {
+        String key;
+        String value;
+
+        FolderMode(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     @OnClick(R.id.activity_cards_manager_add_btn)
     public void showDialogAddFolderCard() {
         Activity self = this;
@@ -142,6 +160,7 @@ public class CardsManagerActivity extends BaseActivity {
         dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> addFolderCard(dialog, self)));
 
         try {
+            initFoldersModes();
             getFoldersByParentId(0, null);
         } catch (IllegalArgumentException e) {
             Toast.makeText(this, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
@@ -276,67 +295,110 @@ public class CardsManagerActivity extends BaseActivity {
         }
     }
 
+    private void initFoldersModes() {
+        folder0Modes = new ArrayList<>();
+        folder0Modes.add(new FolderMode(MODE_NONE, "Aucun"));
+        folder0Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
+        folder0Modes.add(new FolderMode(MODE_CREATION, "Création"));
+
+        folder1Modes = new ArrayList<>();
+        folder1Modes.add(new FolderMode(MODE_NONE, "Aucun"));
+        folder1Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
+        folder1Modes.add(new FolderMode(MODE_CREATION, "Création"));
+
+        folder2Modes = new ArrayList<>();
+        folder2Modes.add(new FolderMode(MODE_NONE, "Aucun"));
+        folder2Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
+        folder2Modes.add(new FolderMode(MODE_CREATION, "Création"));
+
+        updateFolderModes(0);
+        updateFolderModes(1);
+        updateFolderModes(2);
+    }
+
     // region BindEvents
     private void bindEventsOnDialogElements(AlertDialog dialog) {
         Activity self = this;
-        ((RadioGroup) dialogView.findViewById(R.id.dialog_add_folder_card_folder_0_mode_group)).setOnCheckedChangeListener((radioGroup, id) -> {
-            switch (id) {
-                case R.id.dialog_add_folder_card_folder_0_mode_selection:
-                    try {
-                        onCheckedFolder0ModeSelection();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+
+        ((Spinner) dialogView.findViewById(R.id.dialog_add_folder_card_folder_0_mode_spinner)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                try {
+                    String folderMode = ((FolderMode) adapterView.getSelectedItem()).key;
+                    switch (folderMode) {
+                        case MODE_NONE:
+                            onSelectedFolder0ModeNone();
+                            break;
+                        case MODE_SELECTION:
+                            onSelectedFolder0ModeSelection();
+                            break;
+                        case MODE_CREATION:
+                            onSelectedFolder0ModeCreation();
+                            break;
                     }
-                    break;
-                case R.id.dialog_add_folder_card_folder_0_mode_creation:
-                    try {
-                        onCheckedFolder0ModeCreation();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                    break;
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-        ((RadioGroup) dialogView.findViewById(R.id.dialog_add_folder_card_folder_1_mode_group)).setOnCheckedChangeListener((radioGroup, id) -> {
-            switch (id) {
-                case R.id.dialog_add_folder_card_folder_1_mode_selection:
-                    try {
-                        onCheckedFolder1ModeSelection();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+        ((Spinner) dialogView.findViewById(R.id.dialog_add_folder_card_folder_1_mode_spinner)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                try {
+                    String folderMode = ((FolderMode) adapterView.getSelectedItem()).key;
+                    switch (folderMode) {
+                        case MODE_NONE:
+                            onSelectedFolder1ModeNone();
+                            break;
+                        case MODE_SELECTION:
+                            onSelectedFolder1ModeSelection();
+                            break;
+                        case MODE_CREATION:
+                            onSelectedFolder1ModeCreation();
+                            break;
                     }
-                    break;
-                case R.id.dialog_add_folder_card_folder_1_mode_creation:
-                    try {
-                        onCheckedFolder1ModeCreation();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                    break;
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-        ((RadioGroup) dialogView.findViewById(R.id.dialog_add_folder_card_folder_2_mode_group)).setOnCheckedChangeListener((radioGroup, id) -> {
-            switch (id) {
-                case R.id.dialog_add_folder_card_folder_2_mode_selection:
-                    try {
-                        onCheckedFolder2ModeSelection();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+        ((Spinner) dialogView.findViewById(R.id.dialog_add_folder_card_folder_2_mode_spinner)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                try {
+                    String folderMode = ((FolderMode) adapterView.getSelectedItem()).key;
+                    switch (folderMode) {
+                        case MODE_NONE:
+                            onSelectedFolder2ModeNone();
+                            break;
+                        case MODE_SELECTION:
+                            onSelectedFolder2ModeSelection();
+                            break;
+                        case MODE_CREATION:
+                            onSelectedFolder2ModeCreation();
+                            break;
                     }
-                    break;
-                case R.id.dialog_add_folder_card_folder_2_mode_creation:
-                    try {
-                        onCheckedFolder2ModeCreation();
-                    } catch (IllegalArgumentException e) {
-                        Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                    break;
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(self, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -417,25 +479,32 @@ public class CardsManagerActivity extends BaseActivity {
         });
     }
 
-    private void onCheckedFolder0ModeSelection() {
+    private void onSelectedFolder0ModeNone() {
+        toggleFolderSpinnerVisibility(0, false);
+        toggleFolderNameTextVisibility(0, false);
+        toggleFolderGroupVisibility(1, false);
+        toggleFolderGroupVisibility(2, false);
+    }
+
+    private void onSelectedFolder0ModeSelection() {
         toggleFolderSpinnerVisibility(0, true);
         toggleFolderNameTextVisibility(0, false);
-        toggleFolderModeVisibility(1, MODE_SELECTION, true);
+        toggleFolderModeSelectionVisibility(1, true);
         toggleFolderGroupVisibility(1, true);
         if (isFolderMode(1, MODE_SELECTION)) {
-            toggleFolderModeVisibility(2, MODE_SELECTION, true);
+            toggleFolderModeSelectionVisibility(2, true);
             toggleFolderGroupVisibility(2, true);
         }
     }
 
-    private void onCheckedFolder0ModeCreation() {
+    private void onSelectedFolder0ModeCreation() {
         toggleFolderSpinnerVisibility(0, false);
         toggleFolderNameTextVisibility(0, true);
-        toggleFolderModeVisibility(1, MODE_SELECTION, false);
+        toggleFolderModeSelectionVisibility(1, false);
         toggleFolderMode(1, MODE_CREATION);
         toggleFolderSpinnerVisibility(1, false);
         toggleFolderNameTextVisibility(1, true);
-        toggleFolderModeVisibility(2, MODE_SELECTION, false);
+        toggleFolderModeSelectionVisibility(2, false);
         toggleFolderMode(2, MODE_CREATION);
         toggleFolderSpinnerVisibility(2, false);
         toggleFolderNameTextVisibility(2, true);
@@ -452,17 +521,23 @@ public class CardsManagerActivity extends BaseActivity {
         }
     }
 
-    private void onCheckedFolder1ModeSelection() {
+    private void onSelectedFolder1ModeNone() {
+        toggleFolderSpinnerVisibility(1, false);
+        toggleFolderNameTextVisibility(1, false);
+        toggleFolderGroupVisibility(2, false);
+    }
+
+    private void onSelectedFolder1ModeSelection() {
         toggleFolderSpinnerVisibility(1, true);
         toggleFolderNameTextVisibility(1, false);
-        toggleFolderModeVisibility(2, MODE_SELECTION, true);
+        toggleFolderModeSelectionVisibility(2, true);
         toggleFolderGroupVisibility(2, true);
     }
 
-    private void onCheckedFolder1ModeCreation() {
+    private void onSelectedFolder1ModeCreation() {
         toggleFolderSpinnerVisibility(1, false);
         toggleFolderNameTextVisibility(1, true);
-        toggleFolderModeVisibility(2, MODE_SELECTION, false);
+        toggleFolderModeSelectionVisibility(2, false);
         toggleFolderMode(2, MODE_CREATION);
         toggleFolderSpinnerVisibility(2, false);
         toggleFolderNameTextVisibility(2, true);
@@ -473,12 +548,17 @@ public class CardsManagerActivity extends BaseActivity {
         }
     }
 
-    private void onCheckedFolder2ModeSelection() {
+    private void onSelectedFolder2ModeNone() {
+        toggleFolderSpinnerVisibility(2, false);
+        toggleFolderNameTextVisibility(2, false);
+    }
+
+    private void onSelectedFolder2ModeSelection() {
         toggleFolderSpinnerVisibility(2, true);
         toggleFolderNameTextVisibility(2, false);
     }
 
-    private void onCheckedFolder2ModeCreation() {
+    private void onSelectedFolder2ModeCreation() {
         toggleFolderSpinnerVisibility(2, false);
         toggleFolderNameTextVisibility(2, true);
     }
@@ -519,49 +599,43 @@ public class CardsManagerActivity extends BaseActivity {
         dialogView.findViewById(viewId).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void toggleFolderModeVisibility(int folder, String mode, boolean show) throws IllegalArgumentException {
+    private void toggleFolderModeSelectionVisibility(int folder, boolean show) throws IllegalArgumentException {
         int viewId;
+        List<FolderMode> folderModes;
         switch (folder) {
             case 0:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
+                folderModes = folder0Modes;
                 break;
             case 1:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
+                folderModes = folder1Modes;
                 break;
             case 2:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
+                folderModes = folder2Modes;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown folder: " + folder);
         }
-        dialogView.findViewById(viewId).setVisibility(show ? View.VISIBLE : View.GONE);
+
+        Spinner spinner = dialogView.findViewById(viewId);
+        int folderModesSelection = spinner.getSelectedItemPosition();
+
+        Integer folderModeIndex = getFolderModeIndex(folderModes, MODE_SELECTION);
+        if (show && null == folderModeIndex) {
+            folderModes.add(1, new FolderMode(MODE_SELECTION, "Sélection"));
+            updateFolderModes(folder);
+            if (1 == folderModesSelection) {
+                spinner.setSelection(2);
+            }
+        } else if (!show && null != folderModeIndex) {
+            folderModes.remove(1);
+            updateFolderModes(folder);
+            if (1 == folderModesSelection) {
+                spinner.setSelection(0);
+            }
+        }
     }
 
     private void toggleFolderSpinnerVisibility(int folder, boolean show) throws IllegalArgumentException {
@@ -600,62 +674,52 @@ public class CardsManagerActivity extends BaseActivity {
         dialogView.findViewById(viewId).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void toggleFolderMode(int folder, String mode) throws IllegalArgumentException {
+    private void toggleFolderMode(int folder, String mode) throws RuntimeException {
         int viewId;
+        List<FolderMode> folderModes;
         boolean showSpinner, showNameText;
+
         switch (folder) {
             case 0:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_selection;
-                        showSpinner = true;
-                        showNameText = false;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_creation;
-                        showSpinner = false;
-                        showNameText = true;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
+                folderModes = folder0Modes;
                 break;
             case 1:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_selection;
-                        showSpinner = true;
-                        showNameText = false;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_creation;
-                        showSpinner = false;
-                        showNameText = true;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
+                folderModes = folder1Modes;
                 break;
             case 2:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_selection;
-                        showSpinner = true;
-                        showNameText = false;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_creation;
-                        showSpinner = false;
-                        showNameText = true;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
+                folderModes = folder2Modes;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown folder: " + folder);
         }
-        ((RadioButton) dialogView.findViewById(viewId)).setChecked(true);
+
+        switch (mode) {
+            case MODE_NONE:
+                showSpinner = false;
+                showNameText = false;
+                break;
+            case MODE_SELECTION:
+                showSpinner = true;
+                showNameText = false;
+                break;
+            case MODE_CREATION:
+                showSpinner = false;
+                showNameText = true;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown mode: " + mode);
+        }
+
+        Integer folderModeIndex = getFolderModeIndex(folderModes, mode);
+        if (null == folderModeIndex) {
+            throw new RuntimeException("Tried to switch to mode " + mode + " for folder " + folder + " but it does not contain this mode");
+        }
+
+        Spinner spinner = dialogView.findViewById(viewId);
+        spinner.setSelection(folderModeIndex);
         toggleFolderSpinnerVisibility(folder, showSpinner);
         toggleFolderNameTextVisibility(folder, showNameText);
     }
@@ -679,51 +743,69 @@ public class CardsManagerActivity extends BaseActivity {
         return ((EditText) dialogView.findViewById(viewId)).getText().toString();
     }
 
+    @Nullable
+    private Integer getFolderModeIndex(@NonNull List<FolderMode> folderModes, String mode) {
+        for (int i = 0; i < folderModes.size(); i++) {
+            if (mode.equals(folderModes.get(i).key)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     private boolean isFolderMode(int folder, String mode) throws IllegalArgumentException {
         int viewId;
         switch (folder) {
             case 0:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_0_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
                 break;
             case 1:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_1_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
                 break;
             case 2:
-                switch (mode) {
-                    case MODE_SELECTION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_selection;
-                        break;
-                    case MODE_CREATION:
-                        viewId = R.id.dialog_add_folder_card_folder_2_mode_creation;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown mode: " + mode);
-                }
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown folder: " + folder);
         }
 
-        RadioButton view = dialogView.findViewById(viewId);
-        return view.getVisibility() == View.VISIBLE && view.isChecked();
+        Spinner spinner = dialogView.findViewById(viewId);
+        switch (mode) {
+            case MODE_NONE:
+                return MODE_NONE.equals(((FolderMode) spinner.getSelectedItem()).key);
+            case MODE_SELECTION:
+                return MODE_SELECTION.equals(((FolderMode) spinner.getSelectedItem()).key);
+            case MODE_CREATION:
+                return MODE_CREATION.equals(((FolderMode) spinner.getSelectedItem()).key);
+            default:
+                throw new IllegalArgumentException("Unknown mode: " + mode);
+        }
+    }
+
+    private void updateFolderModes(int folder) throws IllegalArgumentException {
+        int viewId;
+        List<FolderMode> folderModes;
+        switch (folder) {
+            case 0:
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
+                folderModes = folder0Modes;
+                break;
+            case 1:
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
+                folderModes = folder1Modes;
+                break;
+            case 2:
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
+                folderModes = folder2Modes;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown folder: " + folder);
+        }
+
+        Spinner spinner = dialogView.findViewById(viewId);
+        ArrayAdapter<FolderMode> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folderModes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     private void getFoldersByParentId(int level, @Nullable Long parentId) throws IllegalArgumentException {
@@ -746,12 +828,12 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder0List(@NonNull List<Folder> folders) {
-        toggleFolderModeVisibility(0, MODE_SELECTION, true);
+        toggleFolderModeSelectionVisibility(0, true);
         toggleFolderMode(0, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder0Id = null;
+            toggleFolderModeSelectionVisibility(0, false);
             toggleFolderMode(0, MODE_CREATION);
-            toggleFolderModeVisibility(0, MODE_SELECTION, false);
             if (getFolderNameTextContent(0).isEmpty()) {
                 toggleFolderGroupVisibility(1, false);
                 if (getFolderNameTextContent(1).isEmpty()) {
@@ -790,12 +872,12 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder1List(@NonNull List<Folder> folders) {
-        toggleFolderModeVisibility(1, MODE_SELECTION, true);
+        toggleFolderModeSelectionVisibility(1, true);
         toggleFolderMode(1, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder1Id = null;
+            toggleFolderModeSelectionVisibility(1, false);
             toggleFolderMode(1, MODE_CREATION);
-            toggleFolderModeVisibility(1, MODE_SELECTION, false);
             if (getFolderNameTextContent(1).isEmpty()) {
                 toggleFolderGroupVisibility(2, false);
             }
@@ -832,12 +914,12 @@ public class CardsManagerActivity extends BaseActivity {
     }
 
     private void updateDialogFolder2List(@NonNull List<Folder> folders) {
-        toggleFolderModeVisibility(2, MODE_SELECTION, true);
+        toggleFolderModeSelectionVisibility(2, true);
         toggleFolderMode(2, MODE_SELECTION);
         if (folders.isEmpty()) {
             folder2Id = null;
+            toggleFolderModeSelectionVisibility(2, false);
             toggleFolderMode(2, MODE_CREATION);
-            toggleFolderModeVisibility(2, MODE_SELECTION, false);
             return;
         }
         toggleFolderGroupVisibility(2, true);
