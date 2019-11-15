@@ -159,9 +159,8 @@ public class CardsManagerActivity extends BaseActivity {
 
         dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> addFolderCard(dialog, self)));
 
-        initFoldersModes();
-
         try {
+            initFoldersModes();
             getFoldersByParentId(0, null);
         } catch (IllegalArgumentException e) {
             Toast.makeText(this, getString(R.string.Error_occurred), Toast.LENGTH_LONG).show();
@@ -302,30 +301,19 @@ public class CardsManagerActivity extends BaseActivity {
         folder0Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
         folder0Modes.add(new FolderMode(MODE_CREATION, "Création"));
 
-        Spinner folder0ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_0_mode_spinner);
-        ArrayAdapter<FolderMode> folder0ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder0Modes);
-        folder0ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        folder0ModesSpinner.setAdapter(folder0ModesAdapter);
-
         folder1Modes = new ArrayList<>();
         folder1Modes.add(new FolderMode(MODE_NONE, "Aucun"));
         folder1Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
         folder1Modes.add(new FolderMode(MODE_CREATION, "Création"));
-
-        Spinner folder1ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_1_mode_spinner);
-        ArrayAdapter<FolderMode> folder1ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder1Modes);
-        folder1ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        folder1ModesSpinner.setAdapter(folder1ModesAdapter);
 
         folder2Modes = new ArrayList<>();
         folder2Modes.add(new FolderMode(MODE_NONE, "Aucun"));
         folder2Modes.add(new FolderMode(MODE_SELECTION, "Sélection"));
         folder2Modes.add(new FolderMode(MODE_CREATION, "Création"));
 
-        Spinner folder2ModesSpinner = dialogView.findViewById(R.id.dialog_add_folder_card_folder_2_mode_spinner);
-        ArrayAdapter<FolderMode> folder2ModesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folder2Modes);
-        folder2ModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        folder2ModesSpinner.setAdapter(folder2ModesAdapter);
+        updateFolderModes(0);
+        updateFolderModes(1);
+        updateFolderModes(2);
     }
 
     // region BindEvents
@@ -637,11 +625,13 @@ public class CardsManagerActivity extends BaseActivity {
         Integer folderModeIndex = getFolderModeIndex(folderModes, MODE_SELECTION);
         if (show && null == folderModeIndex) {
             folderModes.add(1, new FolderMode(MODE_SELECTION, "Sélection"));
+            updateFolderModes(folder);
             if (1 == folderModesSelection) {
                 spinner.setSelection(2);
             }
         } else if (!show && null != folderModeIndex) {
             folderModes.remove(1);
+            updateFolderModes(folder);
             if (1 == folderModesSelection) {
                 spinner.setSelection(0);
             }
@@ -790,6 +780,32 @@ public class CardsManagerActivity extends BaseActivity {
             default:
                 throw new IllegalArgumentException("Unknown mode: " + mode);
         }
+    }
+
+    private void updateFolderModes(int folder) throws IllegalArgumentException {
+        int viewId;
+        List<FolderMode> folderModes;
+        switch (folder) {
+            case 0:
+                viewId = R.id.dialog_add_folder_card_folder_0_mode_spinner;
+                folderModes = folder0Modes;
+                break;
+            case 1:
+                viewId = R.id.dialog_add_folder_card_folder_1_mode_spinner;
+                folderModes = folder1Modes;
+                break;
+            case 2:
+                viewId = R.id.dialog_add_folder_card_folder_2_mode_spinner;
+                folderModes = folder2Modes;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown folder: " + folder);
+        }
+
+        Spinner spinner = dialogView.findViewById(viewId);
+        ArrayAdapter<FolderMode> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, folderModes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     private void getFoldersByParentId(int level, @Nullable Long parentId) throws IllegalArgumentException {
