@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +43,7 @@ public class CardsManagerActivity extends BaseActivity {
     private List<Long> displayedActivityCardIdList;
     private boolean getCardsBinded = false;
     private View dialogView;
-    private Long folder0Id, folder1Id, folder2Id;
+    public Long folder0Id, folder1Id, folder2Id;
     private boolean onCreate = false;
     private boolean addedFolderCard = false;
     private List<FolderMode> folder0Modes, folder1Modes, folder2Modes;
@@ -73,6 +71,22 @@ public class CardsManagerActivity extends BaseActivity {
     @Override
     protected Toolbar getToolbar() {
         return findViewById(R.id.activity_cards_manager_toolbar);
+    }
+
+    public void changeFolderId(int folder, Long value) throws IllegalArgumentException {
+        switch (folder) {
+            case 0:
+                folder0Id = value;
+                break;
+            case 1:
+                folder1Id = value;
+                break;
+            case 2:
+                folder2Id = value;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown folder: " + folder);
+        }
     }
 
     public boolean isOnCreate() {

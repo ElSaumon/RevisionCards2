@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class FolderHolder extends TreeNode.BaseNodeViewHolder<FolderHolder.IconT
     private CardViewModel cardViewModel;
     private TextView textView;
     private PrintView arrowIconView;
+    private CheckBox checkBox;
     private List<Long> displayedChildFolderIdList;
     private List<Long> displayedChildCardIdList;
     private boolean getFoldersBinded = false;
@@ -68,6 +70,8 @@ public class FolderHolder extends TreeNode.BaseNodeViewHolder<FolderHolder.IconT
         textView = nodeView.findViewById(R.id.node_cards_manager_folder_text);
         textView.setText(iconTreeItem.folder.getName());
         arrowIconView = nodeView.findViewById(R.id.node_cards_manager_folder_arrow_icon);
+        checkBox = nodeView.findViewById(R.id.node_cards_manager_card_folder_check);
+        checkBox.setOnCheckedChangeListener(this::onCheckBoxCheckedChange);
 
         return nodeView;
     }
@@ -89,6 +93,35 @@ public class FolderHolder extends TreeNode.BaseNodeViewHolder<FolderHolder.IconT
     private void configureViewModel() {
         ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(context);
         cardViewModel = ViewModelProviders.of((FragmentActivity) context, viewModelFactory).get(CardViewModel.class);
+    }
+
+    private void onCheckBoxCheckedChange(View buttonView, boolean isChecked) {
+        iconTreeItem.isChecked = isChecked;
+        if (isChecked) {
+            TreeNode parentNode = node.getParent();
+            List<TreeNode> siblingNodeList = parentNode.getChildren();
+            for (TreeNode siblingNode : siblingNodeList) {
+                if (FolderHolder.class == siblingNode.getViewHolder().getClass() && node != siblingNode) {
+                    ((FolderHolder) siblingNode.getViewHolder()).toggleCheckBox(false);
+                }
+            }
+            if (FolderHolder.class == parentNode.getViewHolder().getClass()) {
+                ((FolderHolder) parentNode.getViewHolder()).toggleCheckBox(true);
+            }
+            ((CardsManagerActivity) context).changeFolderId(iconTreeItem.level, iconTreeItem.folder.getId());
+        } else {
+            List<TreeNode> childNodeList = node.getChildren();
+            for (TreeNode childNode : childNodeList) {
+                if (FolderHolder.class == childNode.getViewHolder().getClass()) {
+                    ((FolderHolder) childNode.getViewHolder()).toggleCheckBox(false);
+                }
+            }
+            ((CardsManagerActivity) context).changeFolderId(iconTreeItem.level, null);
+        }
+    }
+
+    private void toggleCheckBox(boolean isChecked) {
+        checkBox.setChecked(isChecked);
     }
 
     private void updateChildFolderList(@NonNull List<Folder> folders) {
@@ -197,6 +230,7 @@ public class FolderHolder extends TreeNode.BaseNodeViewHolder<FolderHolder.IconT
     public static class IconTreeItem {
         Folder folder;
         int level;
+        boolean isChecked = false;
 
         public IconTreeItem(Folder folder, int level) {
             this.folder = folder;
