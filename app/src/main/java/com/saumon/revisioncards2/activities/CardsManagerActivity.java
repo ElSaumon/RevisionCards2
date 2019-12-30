@@ -44,6 +44,7 @@ public class CardsManagerActivity extends BaseActivity {
     private boolean getCardsBinded = false;
     private View dialogView;
     public Long folder0Id, folder1Id, folder2Id;
+    public Long checkFolder0Id, checkFolder1Id, checkFolder2Id;
     private boolean onCreate = false;
     private boolean addedFolderCard = false;
     private List<FolderMode> folder0Modes, folder1Modes, folder2Modes;
@@ -76,13 +77,13 @@ public class CardsManagerActivity extends BaseActivity {
     public void changeFolderId(int folder, Long value) throws IllegalArgumentException {
         switch (folder) {
             case 0:
-                folder0Id = value;
+                checkFolder0Id = value;
                 break;
             case 1:
-                folder1Id = value;
+                checkFolder1Id = value;
                 break;
             case 2:
-                folder2Id = value;
+                checkFolder2Id = value;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown folder: " + folder);
@@ -865,7 +866,9 @@ public class CardsManagerActivity extends BaseActivity {
 
         Integer selectedFolderPosition = null;
         Long selectedFolderId = null;
-        if (null != folder0Id) {
+        if (null != checkFolder0Id) {
+            selectedFolderId = checkFolder0Id;
+        } else if (null != folder0Id) {
             selectedFolderId = folder0Id;
         } else if (null != selectedFolder) {
             selectedFolderId = selectedFolder.getId();
@@ -907,7 +910,9 @@ public class CardsManagerActivity extends BaseActivity {
 
         Integer selectedFolderPosition = null;
         Long selectedFolderId = null;
-        if (null != folder1Id) {
+        if (null != checkFolder1Id) {
+            selectedFolderId = checkFolder1Id;
+        } else if (null != folder1Id) {
             selectedFolderId = folder1Id;
         } else if (null != selectedFolder) {
             selectedFolderId = selectedFolder.getId();
@@ -946,7 +951,9 @@ public class CardsManagerActivity extends BaseActivity {
 
         Integer selectedFolderPosition = null;
         Long selectedFolderId = null;
-        if (null != folder2Id) {
+        if (null != checkFolder2Id) {
+            selectedFolderId = checkFolder2Id;
+        } else if (null != folder2Id) {
             selectedFolderId = folder2Id;
         } else if (null != selectedFolder) {
             selectedFolderId = selectedFolder.getId();
