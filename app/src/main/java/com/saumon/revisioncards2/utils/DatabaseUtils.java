@@ -16,6 +16,7 @@ import com.saumon.revisioncards2.models.Folder;
 
 import java.util.Date;
 
+import static android.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 class DatabaseUtils {
@@ -56,7 +57,7 @@ class DatabaseUtils {
     }
 
     public static void emptyDatabase(@NonNull Context context) {
-        SQLiteDatabase database = SQLiteDatabase.openDatabase(context.getDatabasePath(RevisionCardsDatabase.DATABASE_NAME).getPath(), null, OPEN_READWRITE);
+        SQLiteDatabase database = SQLiteDatabase.openDatabase(context.getDatabasePath(RevisionCardsDatabase.DATABASE_NAME).getPath(), null, CREATE_IF_NECESSARY|OPEN_READWRITE);
         String[] tableList = {"Folder", "Card", "Grade"};
         for (String table :tableList) {
             try {
