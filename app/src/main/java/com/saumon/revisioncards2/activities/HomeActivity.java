@@ -25,10 +25,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class HomeActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks, StorageUtils.BackupAsyncTask.Listeners, StorageUtils.RestoreAsyncTask.Listeners, FillDatabaseAsyncTask.Listeners {
-    @BindView(R.id.activity_main_fill_database_btn) Button fillDatabaseButton;
-    @BindView(R.id.activity_main_backup_btn) Button backupButton;
-    @BindView(R.id.activity_main_restore_btn) Button restoreButton;
-    @BindView(R.id.activity_main_message_txt) TextView messageTextView;
+    @BindView(R.id.activity_home_fill_database_btn) Button fillDatabaseButton;
+    @BindView(R.id.activity_home_backup_btn) Button backupButton;
+    @BindView(R.id.activity_home_restore_btn) Button restoreButton;
+    @BindView(R.id.activity_home_message_txt) TextView messageTextView;
 
     private boolean hasClickBackupButton = false;
     private boolean hasClickRestoreButton = false;
@@ -88,19 +88,19 @@ public class HomeActivity extends BaseActivity implements EasyPermissions.Permis
         return getString(R.string.Home);
     }
 
-    @OnClick(R.id.activity_main_review_btn)
+    @OnClick(R.id.activity_home_review_btn)
     public void onClickReviewButton() {
        Intent intent = new Intent(this, CardsRevisionSelectorActivity.class);
        startActivity(intent);
     }
 
-    @OnClick(R.id.activity_main_cards_manage_btn)
+    @OnClick(R.id.activity_home_cards_manage_btn)
     public void onClickCardsManageButton() {
         Intent intent = new Intent(this, CardsManagerActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.activity_main_backup_btn)
+    @OnClick(R.id.activity_home_backup_btn)
     public void onClickBackupButton() {
         if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
             hasClickBackupButton = true;
@@ -110,7 +110,7 @@ public class HomeActivity extends BaseActivity implements EasyPermissions.Permis
         StorageUtils.backup(this, this);
     }
 
-    @OnClick(R.id.activity_main_restore_btn)
+    @OnClick(R.id.activity_home_restore_btn)
     public void onClickRestoreButton() {
         if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
             hasClickRestoreButton = true;
@@ -120,7 +120,7 @@ public class HomeActivity extends BaseActivity implements EasyPermissions.Permis
         askEmptyDatabaseRestore();
     }
 
-    @OnClick(R.id.activity_main_fill_database_btn)
+    @OnClick(R.id.activity_home_fill_database_btn)
     public void onClickFillDatabaseButton() {
         new FillDatabaseAsyncTask(this, this).execute();
     }
