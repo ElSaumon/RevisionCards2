@@ -1,206 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false">
 
     <LinearLayout
-        android:id="@+id/dialog_add_folder_card_folder_0_group"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/dialog_add_folder_card_folder_0_group"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/Folder_0_mode" />
+
+                <Spinner
+                    android:id="@+id/dialog_add_folder_card_folder_0_mode_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/dialog_add_folder_card_folder_0_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" />
+
+            <EditText
+                android:id="@+id/dialog_add_folder_card_folder_0_name_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
+                android:hint="@string/Name"
+                android:imeOptions="actionNext"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_add_folder_card_folder_1_group"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/Folder_1_mode" />
+
+                <Spinner
+                    android:id="@+id/dialog_add_folder_card_folder_1_mode_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/dialog_add_folder_card_folder_1_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" />
+
+            <EditText
+                android:id="@+id/dialog_add_folder_card_folder_1_name_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
+                android:hint="@string/Name"
+                android:imeOptions="actionNext"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_add_folder_card_folder_2_group"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/Folder_2_mode" />
+
+                <Spinner
+                    android:id="@+id/dialog_add_folder_card_folder_2_mode_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/dialog_add_folder_card_folder_2_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" />
+
+            <EditText
+                android:id="@+id/dialog_add_folder_card_folder_2_name_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
+                android:hint="@string/Name"
+                android:imeOptions="actionNext"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_add_folder_card_card_group"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:text="@string/Folder_0_mode" />
+                android:text="@string/Card" />
 
-            <Spinner
-                android:id="@+id/dialog_add_folder_card_folder_0_mode_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/dialog_add_folder_card_folder_0_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_folder_0_name_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:visibility="gone"
-            android:hint="@string/Name"
-            android:imeOptions="actionNext"
-            tools:ignore="Autofill" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/dialog_add_folder_card_folder_1_group"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/dialog_add_folder_card_card_name_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:text="@string/Folder_1_mode" />
+                android:layout_marginStart="4dp"
+                android:hint="@string/Name"
+                android:imeOptions="actionNext"
+                tools:ignore="Autofill" />
 
-            <Spinner
-                android:id="@+id/dialog_add_folder_card_folder_1_mode_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/dialog_add_folder_card_folder_1_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_folder_1_name_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:visibility="gone"
-            android:hint="@string/Name"
-            android:imeOptions="actionNext"
-            tools:ignore="Autofill" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/dialog_add_folder_card_folder_2_group"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/dialog_add_folder_card_card_text1_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:text="@string/Folder_2_mode" />
+                android:layout_marginStart="4dp"
+                android:hint="@string/Text_1"
+                android:imeOptions="actionNext"
+                tools:ignore="Autofill" />
 
-            <Spinner
-                android:id="@+id/dialog_add_folder_card_folder_2_mode_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/dialog_add_folder_card_card_text2_text"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:hint="@string/Text_2"
+                android:imeOptions="actionDone"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 
-        <Spinner
-            android:id="@+id/dialog_add_folder_card_folder_2_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_folder_2_name_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:visibility="gone"
-            android:hint="@string/Name"
-            android:imeOptions="actionNext"
-            tools:ignore="Autofill" />
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/dialog_add_folder_card_card_group"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:text="@string/Card" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_card_name_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:hint="@string/Name"
-            android:imeOptions="actionNext"
-            tools:ignore="Autofill" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_card_text1_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:hint="@string/Text_1"
-            android:imeOptions="actionNext"
-            tools:ignore="Autofill" />
-
-        <EditText
-            android:id="@+id/dialog_add_folder_card_card_text2_text"
-            android:inputType="text|textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:hint="@string/Text_2"
-            android:imeOptions="actionDone"
-            tools:ignore="Autofill" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
